@@ -8,8 +8,19 @@
         <label>
           <checkbox :value="isHideChecked" @click="hideChecked()" /><text>隐藏已完成</text>
         </label>
-        <button class="select-all" @click="selectAll()">全选 </button>
-        <button class="add-btn" @click="addTodo()">添加</button>
+        <view class="myButton select-all" @click="selectAll()">
+          <view class="btn-text">
+            全选
+          </view>
+        </view>
+        <view class="myButton add-btn" @click="addTodo()">
+          <view class="btn-text">
+            添加
+          </view>
+        </view>
+
+        <!-- <button class="select-all" @click="selectAll()">全选 </button>
+        <button class="add-btn" @click="addTodo()">添加</button> -->
       </view>
     </view>
     <view class="todolist__content">
@@ -18,7 +29,12 @@
           <checkbox :value="test" :checked="item.isCheck" @click="selectOne(item.id)" /><text></text>
         </label>
         <input class="uni-input" focus placeholder="自动获得焦点" v-model="item.content" @blur="checkInput(item.id)" />
-        <button class="delete-btn" @click="deleteTodo(item.id)">删除</button>
+        <!-- <button class="delete-btn" @click="deleteTodo(item.id)">删除</button> -->
+        <view class="myButton delete-btn" @click="deleteTodo(item.id)">
+          <view class="btn-text">
+            删除
+          </view>
+        </view>
       </view>
     </view>
   </view>
@@ -34,7 +50,8 @@
       }
     },
     onLoad() {
-
+      console.log("create");
+      this.$store.commit('loadJson');
     },
     computed: {
       todoList() {
@@ -55,6 +72,13 @@
       storage() {
         console.log('storage ');
         // window.localStorage.setItem('todoList', this.$store.getters.toJson);
+        uni.setStorage({
+          key: "todoList",
+          data: this.$store.getters.toJson,
+          success: () => {
+            console.log("successfully stored");
+          }
+        })
       },
       //取消焦点
       removeFocus(index) {
@@ -111,7 +135,34 @@
   }
 </script>
 
-<style>
+<style lang="scss">
+  .todolist {
+    background-color: #3C3E4F;
+    //the size of iPhone12/13 pro
+    height: 844px;
+    width: 390px;
+    box-sizing: border-box;
+    color: white;
+  }
+
+  .myButton {
+    border: #ccc 1px solid;
+    width: 45px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+    margin: 4px;
+
+    .btn-text {
+      position: relative;
+      left: 0rpx;
+      top: -1rpx;
+      color: white;
+    }
+  }
+
   .todolist__header {
     display: flex;
     justify-content: space-between;
@@ -128,9 +179,22 @@
     display: flex;
     align-items: center;
 
-    /* button {
-      /* width: 40px;
-      height: 30px; 
-    } */
+    .select-all {
+      // border: #ccc 
+      background-color: #C43F38;
+    }
+
+    .add-btn {
+      background-color: #70B870;
+    }
+
+  }
+
+  .todolist__content {
+    .todolist__item {
+      .delete-btn {
+        background-color: #C43F38;
+      }
+    }
   }
 </style>

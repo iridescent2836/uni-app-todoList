@@ -9612,36 +9612,6 @@ function normalizeComponent (
 
 /***/ }),
 /* 33 */
-/*!*********************************************************************!*\
-  !*** D:/codeProject/uni-app-todolist-demo/uni.promisify.adaptor.js ***!
-  \*********************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-/* WEBPACK VAR INJECTION */(function(uni) {var _typeof = __webpack_require__(/*! @babel/runtime/helpers/typeof */ 13);
-uni.addInterceptor({
-  returnValue: function returnValue(res) {
-    if (!(!!res && (_typeof(res) === "object" || typeof res === "function") && typeof res.then === "function")) {
-      return res;
-    }
-    return new Promise(function (resolve, reject) {
-      res.then(function (res) {
-        return res[0] ? reject(res[0]) : resolve(res[1]);
-      });
-    });
-  }
-});
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
-
-/***/ }),
-/* 34 */,
-/* 35 */,
-/* 36 */,
-/* 37 */,
-/* 38 */,
-/* 39 */,
-/* 40 */,
-/* 41 */
 /*!***********************************************************!*\
   !*** D:/codeProject/uni-app-todolist-demo/store/index.js ***!
   \***********************************************************/
@@ -9649,7 +9619,7 @@ uni.addInterceptor({
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-
+/* WEBPACK VAR INJECTION */(function(uni) {
 
 var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ 4);
 Object.defineProperty(exports, "__esModule", {
@@ -9657,7 +9627,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 var _vue = _interopRequireDefault(__webpack_require__(/*! vue */ 25));
-var _vuex = _interopRequireDefault(__webpack_require__(/*! vuex */ 42));
+var _vuex = _interopRequireDefault(__webpack_require__(/*! vuex */ 34));
 // 页面路径：store/index.js 
 
 _vue.default.use(_vuex.default); //vue的插件机制
@@ -9682,13 +9652,16 @@ var store = new _vuex.default.Store({
   },
   mutations: {
     loadJson: function loadJson(state) {
-      if (window.localStorage.getItem('todoList')) {
-        console.log("no local storage");
-        var todoList = JSON.parse(window.localStorage.getItem('todoList'));
-        if (todoList) {
-          state.todoList = todoList;
+      uni.getStorage({
+        key: 'todoList',
+        success: function success(res) {
+          console.log("succesfully load from storage");
+          var todoList = JSON.parse(res.data);
+          if (todoList) {
+            state.todoList = todoList;
+          }
         }
-      }
+      });
     },
     addTodo: function addTodo(state, id) {
       state.todoList.unshift({
@@ -9742,9 +9715,10 @@ var store = new _vuex.default.Store({
 });
 var _default = store;
 exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
 
 /***/ }),
-/* 42 */
+/* 34 */
 /*!**************************************************************************************!*\
   !*** ./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vuex3/dist/vuex.common.js ***!
   \**************************************************************************************/
@@ -10998,6 +10972,29 @@ var index_cjs = {
 module.exports = index_cjs;
 
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../../../../webpack/buildin/global.js */ 3)))
+
+/***/ }),
+/* 35 */
+/*!*********************************************************************!*\
+  !*** D:/codeProject/uni-app-todolist-demo/uni.promisify.adaptor.js ***!
+  \*********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+/* WEBPACK VAR INJECTION */(function(uni) {var _typeof = __webpack_require__(/*! @babel/runtime/helpers/typeof */ 13);
+uni.addInterceptor({
+  returnValue: function returnValue(res) {
+    if (!(!!res && (_typeof(res) === "object" || typeof res === "function") && typeof res.then === "function")) {
+      return res;
+    }
+    return new Promise(function (resolve, reject) {
+      res.then(function (res) {
+        return res[0] ? reject(res[0]) : resolve(res[1]);
+      });
+    });
+  }
+});
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
 
 /***/ })
 ]]);

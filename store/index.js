@@ -22,14 +22,17 @@ const store = new Vuex.Store({
   },
   mutations: {
     loadJson(state) {
-      if (window.localStorage.getItem('todoList')) {
-        console.log("no local storage");
-        const todoList = JSON.parse(window.localStorage.getItem('todoList'));
-        if (todoList) {
-          state.todoList = todoList;
-        }
-      }
 
+      uni.getStorage({
+        key: 'todoList',
+        success: (res) => {
+          console.log("succesfully load from storage");
+          const todoList = JSON.parse(res.data);
+          if (todoList) {
+            state.todoList = todoList;
+          }
+        }
+      })
     },
     addTodo(state, id) {
       state.todoList.unshift({
