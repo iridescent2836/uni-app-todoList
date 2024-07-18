@@ -26,7 +26,7 @@
 /* 文章场景相关 */
 .todolist {
   background-color: #3C3E4F;
-  height: 844px;
+  height: 753px;
   width: 390px;
   box-sizing: border-box;
   color: white;
@@ -66,6 +66,32 @@
 }
 .todolist__header-right .add-btn {
   background-color: #70B870;
+}
+.todolist__content {
+  overflow-y: scroll;
+  margin-top: 20px;
+}
+.todolist__content .todolist__item {
+  display: flex;
+  align-items: center;
+  margin: 0px 6px;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  background-color: #4C4E5F;
+  border-radius: 4px;
+}
+.todolist__content .todolist__item checkbox {
+  margin: 6px;
+}
+.todolist__content .todolist__item .line-through {
+  -webkit-text-decoration: line-through rgba(255, 255, 255, 0.8);
+          text-decoration: line-through rgba(255, 255, 255, 0.8);
+  color: rgba(255, 255, 255, 0.5);
+}
+.todolist__content .todolist__item input {
+  flex: 1;
+  padding: 4px;
+  border-bottom: #ccc solid 1px;
 }
 .todolist__content .todolist__item .delete-btn {
   background-color: #C43F38;

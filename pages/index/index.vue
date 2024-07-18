@@ -28,7 +28,8 @@
         <label>
           <checkbox :value="test" :checked="item.isCheck" @click="selectOne(item.id)" /><text></text>
         </label>
-        <input class="uni-input" focus placeholder="自动获得焦点" v-model="item.content" @blur="checkInput(item.id)" />
+        <input class="uni-input" focus v-model="item.content" @blur="checkInput(item.id)" placeholder="请输入待办事项"
+          :disabled="item.isCheck" :class="item.isCheck? 'line-through': ''" />
         <!-- <button class="delete-btn" @click="deleteTodo(item.id)">删除</button> -->
         <view class="myButton delete-btn" @click="deleteTodo(item.id)">
           <view class="btn-text">
@@ -139,11 +140,13 @@
   .todolist {
     background-color: #3C3E4F;
     //the size of iPhone12/13 pro
-    height: 844px;
+    height: 753px;
     width: 390px;
     box-sizing: border-box;
     color: white;
   }
+
+
 
   .myButton {
     border: #ccc 1px solid;
@@ -191,7 +194,33 @@
   }
 
   .todolist__content {
+    overflow-y: scroll;
+    margin-top: 20px;
+
     .todolist__item {
+      display: flex;
+      align-items: center;
+      margin: 0px 6px;
+      justify-content: space-between;
+      margin-bottom: 20px;
+      background-color: #4C4E5F;
+      border-radius: 4px;
+
+      checkbox {
+        margin: 6px;
+      }
+
+      .line-through {
+        text-decoration: line-through rgba(255, 255, 255, 0.8);
+        color: rgba(255, 255, 255, 0.5)
+      }
+
+      input {
+        flex: 1;
+        padding: 4px;
+        border-bottom: #ccc solid 1px;
+      }
+
       .delete-btn {
         background-color: #C43F38;
       }
