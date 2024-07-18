@@ -1,0 +1,21 @@
+
+.todolist__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.todolist__header-left {
+  padding-left: 8px;
+  font-size: 24px;
+  font-weight: bold;
+}
+.todolist__header-right {
+  display: flex;
+  align-items: center;
+
+  /* button {
+    /* width: 40px;
+    height: 30px; 
+  } */
+}
+
