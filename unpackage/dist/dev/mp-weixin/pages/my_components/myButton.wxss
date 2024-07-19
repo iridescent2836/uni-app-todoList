@@ -1,0 +1,20 @@
+
+.my-button {
+  width: 161px;
+  height: 100px;
+  border-radius: 50px;
+  background-color: #ffcccb;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #cc0000;
+  font-size: 20px;
+  font-weight: bold;
+  box-shadow: inset 0px 4px 10px rgba(255, 255, 255, 0.1);
+}
+.my-button--pressed {
+  background-color: rgba(255, 204, 203, 0.8745098039);
+  color: rgba(204, 0, 0, 0.7960784314);
+  box-shadow: inset 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+

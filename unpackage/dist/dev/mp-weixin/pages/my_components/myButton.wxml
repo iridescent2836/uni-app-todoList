@@ -1,0 +1,1 @@
+<view data-event-opts="{{[['mousedown',[['onMouseDown']]],['mouseup',[['onMouseUp']]],['mousemove',[['onMouseUp']]]]}}" class="{{['my-button',isPressed?'my-button--pressed':'']}}" bindmousedown="__e" bindmouseup="__e" bindmousemove="__e"><view class="button-text">{{''+text+''}}</view></view>

@@ -102,6 +102,15 @@ var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
+  var m0 = _vm.returnHideChecked()
+  _vm.$mp.data = Object.assign(
+    {},
+    {
+      $root: {
+        m0: m0,
+      },
+    }
+  )
 }
 var recyclableRender = false
 var staticRenderFns = []
@@ -187,7 +196,22 @@ var _index = _interopRequireDefault(__webpack_require__(/*! @/store/index.js */ 
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+var myButton = function myButton() {
+  __webpack_require__.e(/*! require.ensure | pages/my_components/myButton */ "pages/my_components/myButton").then((function () {
+    return resolve(__webpack_require__(/*! @/pages/my_components/myButton.vue */ 44));
+  }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
+};
 var _default = {
+  components: {
+    myButton: myButton
+  },
   data: function data() {
     return {
       title: 'Hello'
@@ -207,6 +231,10 @@ var _default = {
     }
   },
   methods: {
+    //返回hideChecked
+    returnHideChecked: function returnHideChecked() {
+      return this.$store.state.hideChecked;
+    },
     //生成id
     generateId: function generateId() {
       var num = Number(Date.now().toString() + Math.floor(Math.random() * 1000)).toString(10);

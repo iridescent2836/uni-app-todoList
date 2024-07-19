@@ -1,13 +1,20 @@
 <template>
+
   <view class="todolist">
     <view class="todolist__header">
       <view class="todolist__header-left">
         Todo List
       </view>
       <view class="todolist__header-right">
-        <label>
+        <!-- <label>
           <checkbox :value="isHideChecked" @click="hideChecked()" /><text>隐藏已完成</text>
-        </label>
+        </label> -->
+        <view class='my-check' @click="hideChecked()">
+          <!-- I can't access this.$store.state.hideChecked directly; it only works through a function :-| -->
+          <!-- <view class='my-check__inner' v-show="this.$store.state.hideChecked"></view> -->
+          <view class='my-check__inner' v-show="returnHideChecked()"></view>
+        </view>
+
         <view class="myButton select-all" @click="selectAll()">
           <view class="btn-text">
             全选
@@ -25,12 +32,12 @@
     </view>
     <view class="todolist__content">
       <view class="todolist__item" v-for="(item,index) in todoList" :key="item.id">
-        <label>
-          <checkbox :value="test" :checked="item.isCheck" @click="selectOne(item.id)" /><text></text>
-        </label>
+        <view class='my-check' @click="selectOne(item.id)">
+          <view class='my-check__inner' v-show="item.isCheck"></view>
+        </view>
         <input class="uni-input" focus v-model="item.content" @blur="checkInput(item.id)" placeholder="请输入待办事项"
           :disabled="item.isCheck" :class="item.isCheck? 'line-through': ''" />
-        <!-- <button class="delete-btn" @click="deleteTodo(item.id)">删除</button> -->
+
         <view class="myButton delete-btn" @click="deleteTodo(item.id)">
           <view class="btn-text">
             删除
@@ -44,7 +51,13 @@
 
 <script>
   import store from '@/store/index.js'
+  import myButton from '@/pages/my_components/myButton.vue'
+
+
   export default {
+    components: {
+      myButton,
+    },
     data() {
       return {
         title: 'Hello'
@@ -55,6 +68,7 @@
       this.$store.commit('loadJson');
     },
     computed: {
+
       todoList() {
         if (this.$store.state.hideChecked) {
           return this.$store.getters.uncheckedTodoList;
@@ -64,6 +78,10 @@
       },
     },
     methods: {
+      //返回hideChecked
+      returnHideChecked() {
+        return this.$store.state.hideChecked;
+      },
       //生成id
       generateId() {
         let num = Number(Date.now().toString() + Math.floor(Math.random() * 1000)).toString(10);
@@ -100,6 +118,7 @@
       //隐藏已完成
       hideChecked() {
         console.log('hideTodo');
+
         this.$store.commit('hideChecked');
       },
       //添加todo
@@ -144,18 +163,39 @@
     width: 390px;
     box-sizing: border-box;
     color: white;
+    font-size: 14px;
   }
 
+  .my-check {
+    position: relative;
+    box-sizing: border-box;
+    height: 24px;
+    width: 24px;
+    border: grey solid 1px;
+    border-radius: 50%;
+    margin-right: 4px;
 
+    .my-check__inner {
+      height: 16px;
+      width: 16px;
+      border-radius: 50%;
+      background-color: #8585c2;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+
+    }
+  }
 
   .myButton {
     border: #ccc 1px solid;
-    width: 45px;
+    width: 50px;
     height: 30px;
     display: flex;
     align-items: center;
     justify-content: center;
-    border-radius: 4px;
+    border-radius: 15px;
     margin: 4px;
 
     .btn-text {
@@ -170,6 +210,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    padding-top: 10px;
   }
 
   .todolist__header-left {
@@ -205,6 +246,8 @@
       margin-bottom: 20px;
       background-color: #4C4E5F;
       border-radius: 4px;
+
+      padding: 4px;
 
       checkbox {
         margin: 6px;
